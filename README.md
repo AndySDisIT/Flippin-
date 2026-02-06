@@ -22,6 +22,9 @@ npm install
 npm run dev
 ```
 
+Optional: point the frontend to a hosted API by setting `VITE_API_BASE_URL`
+in a `.env` file inside `frontend/` (defaults to `http://localhost:4000`).
+
 ### Mobile (Expo)
 
 ```bash
@@ -35,6 +38,35 @@ npm run start
 - Configure API hosting (Render, Fly.io, or any Node-friendly host).
 - Point the frontend to the hosted API.
 - Configure Expo build profiles for Android (APK/AAB) and iOS.
+
+## Build APK and iOS files (Expo EAS)
+
+These steps create Android APK/AAB and iOS builds using Expo Application
+Services.
+
+1. Install the EAS CLI:
+   ```bash
+   npm install -g eas-cli
+   ```
+2. Authenticate with Expo:
+   ```bash
+   eas login
+   ```
+3. Initialize EAS in the mobile app folder:
+   ```bash
+   cd mobile
+   eas build:configure
+   ```
+4. Build Android (APK or AAB):
+   ```bash
+   npm run build:android
+   ```
+5. Build iOS (IPA):
+   ```bash
+   npm run build:ios
+   ```
+
+After each build, EAS provides a downloadable artifact link in the terminal.
 
 ## Marketplace focus
 

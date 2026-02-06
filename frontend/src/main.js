@@ -20,6 +20,7 @@ app.innerHTML = `
         <button class="primary">Open launch checklist</button>
         <button class="ghost">View API health</button>
       </div>
+      <div class="api-status" id="api-status">API status: checking...</div>
     </header>
 
     <section class="grid">
@@ -97,5 +98,65 @@ app.innerHTML = `
         </div>
       </div>
     </section>
+
+    <section class="market-data">
+      <h2>Marketplace signals</h2>
+      <p>
+        Live data from the API endpoint helps keep marketplace options aligned
+        with your flipping strategy.
+      </p>
+      <div class="market-data-grid" id="market-data">
+        <div class="placeholder-card">Loading marketplace options...</div>
+      </div>
+    </section>
   </main>
 `;
+
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
+
+const apiStatus = document.querySelector("#api-status");
+const marketData = document.querySelector("#market-data");
+
+const fetchJson = async (path) => {
+  const response = await fetch(`${apiBaseUrl}${path}`);
+  if (!response.ok) {
+    throw new Error("Request failed");
+  }
+  return response.json();
+};
+
+const renderMarketplaces = (payload) => {
+  if (!payload?.options?.length) {
+    marketData.innerHTML = "<div class=\"placeholder-card\">No data yet.</div>";
+    return;
+  }
+
+  marketData.innerHTML = payload.options
+    .map(
+      (option) => `
+        <article class="market-card">
+          <h3>${option.name}</h3>
+          <p class="market-type">${option.type}</p>
+          <p>${option.notes}</p>
+        </article>
+      `
+    )
+    .join("");
+};
+
+const loadApiData = async () => {
+  try {
+    const [health, marketplaces] = await Promise.all([
+      fetchJson("/health"),
+      fetchJson("/marketplaces")
+    ]);
+    apiStatus.textContent = `API status: ${health.status} · ${apiBaseUrl}`;
+    renderMarketplaces(marketplaces);
+  } catch (error) {
+    apiStatus.textContent = "API status: unavailable";
+    marketData.innerHTML =
+      "<div class=\"placeholder-card\">API unavailable. Start the backend to load data.</div>";
+  }
+};
+
+loadApiData();

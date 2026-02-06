@@ -70,6 +70,12 @@ h1 {
   flex-wrap: wrap;
 }
 
+.api-status {
+  margin-top: 1.5rem;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
 button {
   border: none;
   padding: 0.9rem 1.6rem;
@@ -139,6 +145,53 @@ ul {
   color: #cbd5f5;
 }
 
+.market-data {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1);
+}
+
+.market-data p {
+  max-width: 640px;
+  color: #475467;
+}
+
+.market-data-grid {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.market-card {
+  background: #f8fafc;
+  border-radius: 18px;
+  padding: 1.25rem;
+  border: 1px solid #e2e8f0;
+}
+
+.market-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+}
+
+.market-type {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: #64748b;
+  margin-bottom: 0.6rem;
+}
+
+.placeholder-card {
+  background: #f1f5f9;
+  border-radius: 18px;
+  padding: 1.5rem;
+  color: #475467;
+  border: 1px dashed #cbd5f5;
+}
+
 @media (max-width: 720px) {
   .page {
     padding: 2.5rem 6vw 4rem;
@@ -149,6 +202,10 @@ ul {
   }
 
   .marketplaces {
+    padding: 2rem;
+  }
+
+  .market-data {
     padding: 2rem;
   }
 }
